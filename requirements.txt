@@ -1,0 +1,9 @@
+tensorflow
+tensorflow-addons
+numpy
+lxml
+tqdm
+flask
+seaborn
+matplotlib
+pillow

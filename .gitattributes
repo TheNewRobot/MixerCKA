@@ -1,0 +1,7 @@
+*.class         binary
+*.jar           binary
+*.gif           binary
+*.jpg           binary
+*.png           binary
+*.pkl           binary
+*.pb           binary

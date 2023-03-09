@@ -1,0 +1,358 @@
+WARNING:tensorflow:Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting RngReadAndSkip cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting Bitcast cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting StatelessRandomUniformV2 cause there is no registered converter for this op.
+WARNING:tensorflow:Using a while_loop for converting ImageProjectiveTransformV3 cause there is no registered converter for this op.
+Model: "model_3"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_4 (InputLayer)        [(None, 32, 32, 3)]       0         
+                                                                 
+ data_augmentation (Sequenti  (None, 224, 224, 3)      7         
+ al)                                                             
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| normalization (Normalizatio  (None, 32, 32, 3)      7         |
+| n)                                                            |
+|                                                               |
+| resizing (Resizing)       (None, 224, 224, 3)       0         |
+|                                                               |
+| random_flip (RandomFlip)  (None, 224, 224, 3)       0         |
+|                                                               |
+| random_zoom (RandomZoom)  (None, 224, 224, 3)       0         |
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ patches_3 (Patches)         (None, 49, 3072)          0         
+                                                                 
+ dense_198 (Dense)           (None, 49, 384)           1180032   
+                                                                 
+ sequential_99 (Sequential)  (None, 49, 384)           524796    
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_36 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_75 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_150 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_72 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_151 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_75 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_76 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_152 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_73 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_153 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_76 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_36 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_37 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_77 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_154 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_74 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_155 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_77 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_78 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_156 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_75 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_157 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_78 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_37 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_38 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_79 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_158 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_76 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_159 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_79 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_80 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_160 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_77 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_161 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_80 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_38 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_39 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_81 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_162 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_78 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_163 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_81 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_82 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_164 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_79 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_165 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_82 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_39 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_40 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_83 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_166 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_80 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_167 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_83 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_84 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_168 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_81 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_169 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_84 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_40 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_41 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_85 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_170 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_82 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_171 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_85 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_86 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_172 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_83 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_173 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_86 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_41 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_42 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_87 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_174 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_84 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_175 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_87 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_88 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_176 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_85 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_177 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_88 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_42 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_43 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_89 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_178 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_86 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_179 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_89 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_90 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_180 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_87 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_181 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_90 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_43 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_44 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_91 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_182 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_88 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_183 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_91 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_92 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_184 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_89 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_185 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_92 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_44 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_45 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_93 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_186 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_90 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_187 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_93 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_94 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_188 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_91 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_189 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_94 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_45 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_46 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_95 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_190 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_92 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_191 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_95 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_96 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_192 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_93 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_193 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_96 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_46 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+| mlp_mixer_layer_47 (MLPMixe  (None, 49, 384)        43733     |
+| rLayer)                                                       |
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_97 (Sequential)  (None, 384, 49)       4900      ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_194 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| gelu_94 (GELU)        (None, 384, 49)           0         |||
+|||                                                           |||
+||| dense_195 (Dense)     (None, 384, 49)           2450      |||
+|||                                                           |||
+||| dropout_97 (Dropout)  (None, 384, 49)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| sequential_98 (Sequential)  (None, 49, 384)       38065     ||
+|||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|||
+||| dense_196 (Dense)     (None, 49, 49)            18865     |||
+|||                                                           |||
+||| gelu_95 (GELU)        (None, 49, 49)            0         |||
+|||                                                           |||
+||| dense_197 (Dense)     (None, 49, 384)           19200     |||
+|||                                                           |||
+||| dropout_98 (Dropout)  (None, 49, 384)           0         |||
+||¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯||
+|| layer_normalization_47 (Lay  multiple             768       ||
+|| erNormalization)                                            ||
+|¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯|
+¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯
+ global_average_pooling1d_3   (None, 384)              0         
+ (GlobalAveragePooling1D)                                        
+                                                                 
+ dropout_99 (Dropout)        (None, 384)               0         
+                                                                 
+ dense_199 (Dense)           (None, 10)                3850      
+                                                                 
+=================================================================
+Total params: 1,708,685
+Trainable params: 1,708,678
+Non-trainable params: 7
+_________________________________________________________________

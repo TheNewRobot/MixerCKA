@@ -1,6 +1,8 @@
 from tensorflow import keras
 import tensorflow_addons as tfa
 import tensorflow as tf
+import numpy as np
+import pickle
 
 
 class MLP(keras.layers.Layer):
@@ -268,41 +270,91 @@ def build_data_augmention(X_train, image_size):
 
 (X_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
 
-data_augmentation = build_data_augmention(X_train, image_size=224)
-model = MLPMixer(
-    data_augmentation=data_augmentation,
-    num_classes=2,
-    num_blocks=12,
-    image_shape=(224,224),
-    patch_size=32,
-    num_tokens=49,
-    hidden_dim=786,
-    num_token_hidden=384,
-    num_channel_hidden=3072,
-    postional_encoding=False,
-    dropout_rate=0.2,
-)
-model.build(input_shape=(32, 32, 3))
-model.summary()
-exit()
+
+def build_model(seed):
+    tf.keras.utils.set_random_seed(seed)
+    data_augmentation = build_data_augmention(X_train, image_size=224)
+    model = MLPMixer(
+        data_augmentation=data_augmentation,
+        num_classes=2,
+        num_blocks=12,
+        image_shape=(224,224),
+        patch_size=32,
+        num_tokens=49,
+        hidden_dim=786,
+        num_token_hidden=384,
+        num_channel_hidden=3072,
+        postional_encoding=False,
+        dropout_rate=0.2,
+    )
+    model.build(input_shape=(32, 32, 3))
+    return model
 
 
-NUM_TOKENS = 49
-HIDDEN_DIM = 768
-NUM_TOKEN_HIDDEN = 384
-NUM_CHANNEL_HIDDEN = 3072
-DROPOUT_RATE = 0.2
-
-model = keras.Sequential(
-    [MLPMixerLayer(
-        num_tokens=NUM_TOKENS,
-        hidden_dim=HIDDEN_DIM,
-        num_token_hidden=NUM_TOKEN_HIDDEN,
-        num_channel_hidden=NUM_CHANNEL_HIDDEN,
-        dropout_rate=DROPOUT_RATE,
-    ) for _ in range(8)]
-)
-model.build(input_shape=(NUM_TOKENS, HIDDEN_DIM))
-model.summary()
+weight_decay = 0.0001
+batch_size = 512 
+num_epochs = 50
+dropout_rate = 0.2
+learning_rate = 0.005
 
 
+def run_experiment(model):
+    # Create Adam optimizer with weight decay. Regularization that penalizes the increase of weight - with a facto alpha - to correct the overfitting
+    optimizer = tfa.optimizers.AdamW(
+        learning_rate=learning_rate, weight_decay=weight_decay,
+    )
+    # Compile the model.
+    model.compile(
+        optimizer=optimizer,
+        #Negative Log Likelihood = Categorical Cross Entropy
+        loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=[
+            keras.metrics.SparseCategoricalAccuracy(name="acc"),
+            keras.metrics.SparseTopKCategoricalAccuracy(5, name="top5-acc"),
+        ],
+    )
+    # Create a learning rate scheduler callback.
+    reduce_lr = keras.callbacks.ReduceLROnPlateau(
+        monitor="val_loss", factor=0.5, patience=5
+    )
+    # Create an early stopping regularization callback. 
+    # It ends at a point that corresponds to a minimum of the L2-regularized objective
+    #early_stopping = tf.keras.callbacks.EarlyStopping(
+    #    monitor="val_loss", patience=10, restore_best_weights=True
+    #)
+    # Fit the model.
+    history = model.fit(
+        x=X_train,
+        y=y_train,
+        batch_size=batch_size,
+        epochs=num_epochs,
+        validation_split=0.1,
+        callbacks=[reduce_lr],
+    )
+
+    _, accuracy, top_5_accuracy = model.evaluate(x_test, y_test)
+    print(f"Test accuracy: {round(accuracy * 100, 2)}%")
+    print(f"Test top 5 accuracy: {round(top_5_accuracy * 100, 2)}%")
+
+    # Return history to plot learning curves.
+    return history, accuracy, top_5_accuracy
+
+
+def mlpmixer_generator(num_models):
+    #now = datetime.datetime.now()
+    #date = now.strftime("%Y-%m-%d_%H-%M")
+    for seed in range(num_models):
+        mlpmixer_classifier = build_model() # Returns the model
+        mlpmixer_classifier.save(f"mlpmixer_B-32_{seed}_init")
+        mlpmixer_classifier.summary(expand_nested=True)
+        history,accuracy, top_5_accuracy = run_experiment(mlpmixer_classifier)
+        #Saving Results
+        mlpmixer_classifier.save(f"mlpmixer_B-32_{seed}_final")
+        np.save(f'mlpmixer_B-32_{seed}_final/history.npy',history.history)
+        with open(f'mlpmixer_B-32_{seed}_final/accuracy.pkl','wb') as file:
+            pickle.dump(accuracy,file)
+        with open(f'mlpmixer_B-32_{seed}_final/top5-accuracy.pkl','wb') as file:
+            pickle.dump(top_5_accuracy,file)
+
+
+mlpmixer_generator(10)

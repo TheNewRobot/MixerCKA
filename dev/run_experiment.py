@@ -1,7 +1,8 @@
 import wandb
+import tensorflow as tf
+import tensorflow_addons as tfa
 from tensorflow import keras
 from mixer import Mixer
-import tensorflow_addons as tfa
 
 
 def create_cifar10_mixer():
@@ -20,77 +21,104 @@ def create_cifar10_mixer():
 
 
 def main():
+    tf.random.set_seed(0)
+
+    run = wandb.init()
+
+    # lr = run.config.lr
+    # batch_size = run.config.batch_size
+    # weight_decay = run.config.weight_decay
+    lr = 0.0001
+    batch_size = 512
+    weight_decay = 0.0001
+
+    (X_train, y_train), _ = keras.datasets.cifar10.load_data()
+    datagen = keras.preprocessing.image.ImageDataGenerator(
+        featurewise_center=True,
+        zca_whitening=True,
+        width_shift_range=0.05,
+        height_shift_range=0.05,
+        rotation_range=20,
+        shear_range=20,
+        zoom_range=0.2,
+        horizontal_flip=True,
+        vertical_flip=True,
+        rescale=1/255,
+        validation_split=0.2,
+    )
+    datagen.fit(X_train)
+    train_generator = datagen.flow(X_train, y_train, batch_size=batch_size, subset='training')
+    val_generator = datagen.flow(X_train, y_train, batch_size=batch_size, subset='validation')
+
+    model = create_cifar10_mixer()
+    optimizer = tfa.optimizers.AdamW(learning_rate=lr, weight_decay=weight_decay)
+    model.compile(
+        optimizer=optimizer,
+        loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+        metrics=[
+            keras.metrics.SparseCategoricalAccuracy(name="acc"),
+            keras.metrics.SparseTopKCategoricalAccuracy(5, name="top5-acc"),
+        ],
+    )
+
+    wandb_callback = wandb.keras.WandbCallback(save_model=False)
+    reduce_lr = keras.callbacks.ReduceLROnPlateau(
+        monitor="val_loss", 
+        factor=0.5, 
+        patience=3,
+    )
+    early_stopping = keras.callbacks.EarlyStopping(
+        monitor='val_loss', 
+        patience=6,
+    )
+    model.fit(
+        train_generator,
+        validation_data=val_generator,
+        epochs=300,
+        steps_per_epoch=int((len(X_train) * 0.8) / batch_size),
+        validation_steps=int((len(X_train) * 0.2) / batch_size),
+        callbacks=[reduce_lr, early_stopping, wandb_callback],
+    )
+
+
+def start_sweep():
     sweep_config = {
-        'method': 'grid',
+        'method': 'bayes',
         'name': 'test_sweep',
         'metric': {
             'goal': 'minimize',
-            'name': 'validation_loss',
+            'name': 'val_loss',
         },
         'parameters': {
-            'batch_size': {'values'}
-        }
+            'batch_size': {'values': [256, 512]},
+            'lr': {'max': 0.001, 'min': 0.00001},
+            'weight_decay': {'max': 0.001, 'min': 0.00001},
+        },
+        'run_cap': 100,
     }
-
-
-def run_experiment(model):
-    # Create Adam optimizer with weight decay. Regularization that penalizes the increase of weight - with a facto alpha - to correct the overfitting
-    
-    # Compile the model.
-    model.compile(
-        optimizer=optimizer,
-        #Negative Log Likelihood = Categorical Cross Entropy
-        loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-        metrics=[
-            keras.metrics.SparseCategoricalAccuracy(name="acc"),
-            keras.metrics.SparseTopKCategoricalAccuracy(5, name="top5-acc"),
-        ],
-    )
-    # Create a learning rate scheduler callback.
-    reduce_lr = keras.callbacks.ReduceLROnPlateau(
-        monitor="val_loss", factor=0.5, patience=5
-    )
-    # Create an early stopping regularization callback. 
-    # It ends at a point that corresponds to a minimum of the L2-regularized objective
-    #early_stopping = tf.keras.callbacks.EarlyStopping(
-    #    monitor="val_loss", patience=10, restore_best_weights=True
-    #)
-    # Fit the model.
-    history = model.fit(
-        x=x_train,
-        y=y_train,
-        batch_size=batch_size,
-        epochs=num_epochs,
-        validation_split=0.1,
-        callbacks=[reduce_lr],
-    )
-
-    _, accuracy, top_5_accuracy = model.evaluate(x_test, y_test)
-    print(f"Test accuracy: {round(accuracy * 100, 2)}%")
-    print(f"Test top 5 accuracy: {round(top_5_accuracy * 100, 2)}%")
-
-    # Return history to plot learning curves.
-    return history, accuracy, top_5_accuracy
+    sweep_id = wandb.sweep(sweep=sweep_config, project='test-sweep-2')
+    wandb.agent(sweep_id=sweep_id, function=main)
 
 
 if __name__ == "__main__":
-    import tensorflow as tf
-    print(tf.config.list_physical_devices('GPU'))
-    exit()
-    (X_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
+    start_sweep()
 
-    mixer = create_cifar10_mixer()
-    optimizer = tfa.optimizers.AdamW(
-        learning_rate=0.001, weight_decay=0.005,
-    )
-    mixer.compile(
-        optimizer=optimizer,
-        #Negative Log Likelihood = Categorical Cross Entropy
-        loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-        metrics=[
-            keras.metrics.SparseCategoricalAccuracy(name="acc"),
-            keras.metrics.SparseTopKCategoricalAccuracy(5, name="top5-acc"),
-        ],
-    )
+    # print(tf.config.list_physical_devices('GPU'))
+    # (X_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()
+    # print(X_train[0])
+    # exit()
 
-    mixer.fit(X_train, y_train, batch_size=32, epochs=1)
+    # mixer = create_cifar10_mixer()
+    # # optimizer = tfa.optimizers.AdamW(weight_decay=0.004)
+    # optimizer = keras.optimizers.SGD(learning_rate=0.0001, momentum=0.9, nesterov=True)
+    # mixer.compile(
+    #     optimizer=optimizer,
+    #     #Negative Log Likelihood = Categorical Cross Entropy
+    #     loss=keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+    #     metrics=[
+    #         keras.metrics.SparseCategoricalAccuracy(name="acc"),
+    #         keras.metrics.SparseTopKCategoricalAccuracy(5, name="top5-acc"),
+    #     ],
+    # )
+
+    # mixer.fit(X_train, y_train, batch_size=512, epochs=100)

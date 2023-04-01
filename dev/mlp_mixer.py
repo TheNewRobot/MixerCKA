@@ -173,7 +173,7 @@ class Patches(keras.layers.Layer):
             padding="VALID",
         )
         #shape[-1], number of colummns, as well as shape[0]
-        patch_dims = patches.shape[-1]
+        patch_dims = tf.shape(patches)[-1]
         patches = tf.reshape(patches, [batch_size, self.num_patches, patch_dims])
         return patches
 

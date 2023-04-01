@@ -57,7 +57,7 @@ class PatchExtractor(keras.layers.Layer):
         )
 
         # The number of elements in each patch.
-        patch_dims = patches.shape[-1]
+        patch_dims = tf.shape(patches)[-1]
         # Flatten the inner dimensions.
         patches = tf.reshape(patches, [batch_size, self._num_patches, patch_dims])
         return patches
